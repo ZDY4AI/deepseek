@@ -3,7 +3,7 @@ import React, { useState, useMemo, useEffect } from "react";
 import { Input, ConfigProvider, Tooltip, Button, message, Upload } from 'antd';
 import { LinkOutlined, SendOutlined, OpenAIOutlined, ChromeOutlined } from '@ant-design/icons'
 import type { UploadProps, UploadFile } from 'antd';
-import KeyStore from '@/app/store/key'
+import KeyStore from '@/app/store/key' 
 import './index.scss'
 const { TextArea } = Input;
 
@@ -15,13 +15,14 @@ interface ChatInputProps {
 
 const ChatInput = React.memo(function ({ setData, disabled }: ChatInputProps) {
 
+
     const [agentContent, setagentContent] = useState<HTMLElement>()
     const [value, setValue] = useState<string>('');
     const [fileList, setFileList] = useState<UploadFile[]>([])
     const user = KeyStore((state) => state.user)
     const key = KeyStore((state) => state.key)
 
-    const [think, setthink] = useState<boolean>(false)
+    const [think, setthink] = useState<boolean>(true)
     const [networking, setnetworking] = useState<boolean>(false)
 
 

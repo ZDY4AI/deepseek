@@ -42,9 +42,13 @@
                 align-items: center;
                 padding: 10px;
                 font-size: 12px;
-                white-space: nowrap; // 禁止文本换行
-                overflow: hidden; // 隐藏溢出的文本
-                text-overflow: ellipsis; // 使用省略号表示溢出的文本
+
+                .txt {
+                    width: 75%;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
 
                 .drop {
                     position: absolute;
@@ -55,6 +59,10 @@
                     display: flex;
                     cursor: pointer;
                 }
+            }
+
+            .active {
+                background-color: #dbeafe;
             }
 
             .messageitem:hover {
@@ -107,6 +115,6 @@
         }
     }
 
- 
+
 
 }

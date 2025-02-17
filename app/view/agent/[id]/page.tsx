@@ -9,6 +9,7 @@ import KeyStore from '@/app/store/key'
 import { GetMessages, Stopmessage, Getsuggested } from '@/app/api/agent-key/index'
 import { Button, Spin, message } from 'antd';
 import { PoweroffOutlined } from '@ant-design/icons'
+import Active from '@/app/store/active'
 
 const Chatcontent = dynamic(
     () => import('@/app/components/Chatcontent/page'),
@@ -18,6 +19,7 @@ const Chatcontent = dynamic(
 
 export default function Agent({ params }: { params: { id: string } }) {
 
+    const { increment } = Active()
     const [Talk, setTalk] = useState<any>({})
     const [messageList, setMessageList] = useState<any[]>([])
     const [flag, setFlag] = useState(true)
@@ -42,6 +44,7 @@ export default function Agent({ params }: { params: { id: string } }) {
 
     useEffect(() => {
         setTalk(JSON.parse(localStorage.getItem('Talk') || '{}'))
+
     }, [visible])
 
     useEffect(() => {
@@ -53,6 +56,7 @@ export default function Agent({ params }: { params: { id: string } }) {
                     scrollBottom()
                 }).catch((err) => { })
             }
+
 
             setFlag(false)
             // 用户直接从首页提问
@@ -93,6 +97,9 @@ export default function Agent({ params }: { params: { id: string } }) {
     }
 
     async function Getresponse(value: string, fileList = []) {
+        if (params.id == '1') {
+            increment(1)
+        }
         scrollBottom()
         settaskFlag(true)
         const resp = await fetch(`${process.env.NEXT_PUBLIC_API_URL_ALIAS}/chat-messages`, {
