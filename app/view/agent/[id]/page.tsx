@@ -6,7 +6,7 @@ import UpdataName from '@/app/components/UpdataName/page'
 import dynamic from 'next/dynamic';
 import agentStore from '@/app/store/agent'
 import KeyStore from '@/app/store/key'
-import { GetMessages, Stopmessage, Getsuggested } from '@/app/api/agent-key/index'
+import { GetMessages, Stopmessage, getConversation } from '@/app/api/agent-key/index'
 import { Button, Spin, message } from 'antd';
 import { PoweroffOutlined } from '@ant-design/icons'
 import Active from '@/app/store/active'
@@ -69,7 +69,7 @@ export default function Agent({ params }: { params: { id: string } }) {
                 askDirectlyHandled = false
             }
         } catch { }
-    }, [])
+    }, [user])
 
     const chatobj = (val: string, file_img_list = []) => {
         return {
@@ -149,9 +149,9 @@ export default function Agent({ params }: { params: { id: string } }) {
                             completeAnswer += data.answer;
                         }
                         if (conversation_id == '') {
+                            const talk = { ...Talk } 
+                      
                             setconversation_id(data.conversation_id)
-                            const talk = { ...Talk }
-                            talk.name = '新建对话'
                             talk.id = data.conversation_id
                             setTalk(talk)
                         }
@@ -236,7 +236,7 @@ export default function Agent({ params }: { params: { id: string } }) {
             }
 
             <div className='agentInput'>
-                <ChatInput disabled={true} setData={(data) => {
+                <ChatInput disabled={taskFlag} setData={(data) => {
                     let file_list = []
                     if (data.fileList.length != 0) {
                         file_list = data.fileList.map((item: any) => {
@@ -258,9 +258,7 @@ export default function Agent({ params }: { params: { id: string } }) {
             </div>
             <UpdataName visible={visible} setData={(value) => {
                 setVisible(value)
-            }} info={{
-                ...Talk, key, user
-            }} />
+            }} info={Talk} />
         </div >
     )
 }

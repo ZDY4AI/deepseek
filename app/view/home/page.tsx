@@ -29,7 +29,7 @@ export default function page() {
                         id: "",
                         inputs: {},
                         introduction: null,
-                        name: "新建对话",
+                        name: "新对话",
                         status: "0",
                         updated_at: 0,
                     }))

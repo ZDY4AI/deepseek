@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Modal, Input, message, Button } from 'antd';
 import { updateConversations } from '@/app/api/agent-key/index'
 import Active from '@/app/store/active'
-import { useRouter } from 'next/navigation'
+import KeyStore from '@/app/store/key';
 
 interface UpdataNameProps {
     visible: boolean;
@@ -14,7 +14,8 @@ interface UpdataNameProps {
 export default function UpdataName({ visible, setData, info }: UpdataNameProps) {
     const [value, setValue] = useState<string>('')
     const { increment } = Active()
-    const router = useRouter()
+    const key = KeyStore((state) => state.key)
+    const user = KeyStore((state) => state.user)
     useEffect(() => {
         setValue(info.name)
     }, [info])
@@ -24,13 +25,13 @@ export default function UpdataName({ visible, setData, info }: UpdataNameProps) 
         const data = {
             name: value,
             auto_generate: false,
-            user: info.user
+            user: user
         }
         if (info.id == '') {
             const id = localStorage.getItem('conversation_id')
             info.id = id
         }
-        updateConversations(info.id, data, info.key).then((res: any) => {
+        updateConversations(info.id, data, key).then((res: any) => {
             message.success('修改成功')
             localStorage.setItem('Talk', JSON.stringify(res))
             setData(false)

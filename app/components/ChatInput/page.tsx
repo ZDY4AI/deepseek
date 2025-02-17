@@ -3,7 +3,7 @@ import React, { useState, useMemo, useEffect } from "react";
 import { Input, ConfigProvider, Tooltip, Button, message, Upload } from 'antd';
 import { LinkOutlined, SendOutlined, OpenAIOutlined, ChromeOutlined } from '@ant-design/icons'
 import type { UploadProps, UploadFile } from 'antd';
-import KeyStore from '@/app/store/key' 
+import KeyStore from '@/app/store/key'
 import './index.scss'
 const { TextArea } = Input;
 
@@ -41,6 +41,9 @@ const ChatInput = React.memo(function ({ setData, disabled }: ChatInputProps) {
     const [flag, setflag] = useState(false)
 
     const isflag = useMemo(() => {
+        if (disabled) {
+            return true
+        }
         return value.trim() == ''
     }, [value])
 

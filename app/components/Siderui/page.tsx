@@ -29,20 +29,28 @@ export default function Siderui({ width, setDate }: SideruiProps) {
 
     useEffect(() => {
         getmessagelist()
-        if (typeof window !== 'undefined') {
-            setpathid(window.location.pathname.split('/view/agent/')[1])
-        }
-    }, [count])
+        console.log(count, 'count');
+
+    }, [count, user])
 
     const getmessagelist = () => {
+        if (user == '') return
         getConversation(user, '', 20, key).then((res) => {
-            setmessagelist(res.data)
+            if (res.data.length != 0) {
+                setmessagelist(res.data)
+            }
+
+            if (typeof window !== 'undefined') {
+                setpathid(window.location.pathname.split('/view/agent/')[1])
+            }
         })
     }
 
     const userDom = () => {
         return <div style={{ cursor: 'pointer', fontSize: '13px' }}>
             <div onClick={() => {
+                setactive(-1)
+                setpathid('-1')
                 Cookies.remove('access_token', { path: '/' });
                 router.push('/login')
                 if (typeof window !== 'undefined') {
@@ -60,7 +68,6 @@ export default function Siderui({ width, setDate }: SideruiProps) {
         const innerwidth = width == '240px' ? '80px' : '240px'
         setDate(innerwidth)
     }
-
 
 
     return (
@@ -98,10 +105,9 @@ export default function Siderui({ width, setDate }: SideruiProps) {
                                                     e?.stopPropagation()
                                                 }} style={{ cursor: 'pointer', fontSize: '13px' }}>
                                                     <div onClick={(e) => {
+                                                        console.log(user, '1234679')
                                                         e.stopPropagation();
                                                         setvisible(true)
-                                                        item['key'] = key
-                                                        item['user'] = user
                                                         console.log(item);
                                                         setInfo(item)
                                                     }}>重命名</div>

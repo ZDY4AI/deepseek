@@ -35,8 +35,10 @@ interface KeyStore {
     key: string;
     user: string;
     conversation_id: string;
+    loginlist: Array<any>;
     setKey: (key: string) => void;
     setconversation_id: (conversation_id: string) => void;
+    setUser: (user: string) => void
 }
 
 const keyStore = create<KeyStore>()(
@@ -45,6 +47,10 @@ const keyStore = create<KeyStore>()(
             user: '',
             key: 'app-ITODRUYMH6o5jcdTH16AEpZ7',
             conversation_id: '',
+            loginlist: [
+                { username: 'admin', password: '123' },
+                { username: 'user', password: '123' }
+            ],
             setKey: (key) => {
                 set({ key });
                 localStorage.setItem('key', key);
@@ -53,6 +59,9 @@ const keyStore = create<KeyStore>()(
                 set({ conversation_id });
                 localStorage.setItem('conversation_id', conversation_id);
             },
+            setUser: (user) => { 
+                set({ user })
+            }
         }),
         {
             name: 'key-store', // 持久化存储的名称
