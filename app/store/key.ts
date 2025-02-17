@@ -45,7 +45,7 @@ const keyStore = create<KeyStore>()(
     persist(
         (set) => ({
             user: '',
-            key: 'app-ITODRUYMH6o5jcdTH16AEpZ7',
+            key: 'app-rqctoq3CVVXS4NJq0NZp2Fke',
             conversation_id: '',
             loginlist: [
                 { username: 'admin', password: '123' },
@@ -59,7 +59,7 @@ const keyStore = create<KeyStore>()(
                 set({ conversation_id });
                 localStorage.setItem('conversation_id', conversation_id);
             },
-            setUser: (user) => { 
+            setUser: (user) => {
                 set({ user })
             }
         }),

@@ -19,6 +19,7 @@ const ChatInput = React.memo(function ({ setData, disabled }: ChatInputProps) {
     const [agentContent, setagentContent] = useState<HTMLElement>()
     const [value, setValue] = useState<string>('');
     const [fileList, setFileList] = useState<UploadFile[]>([])
+    const [textlist, settextlist] = useState<any>([])
     const user = KeyStore((state) => state.user)
     const key = KeyStore((state) => state.key)
 
@@ -53,6 +54,7 @@ const ChatInput = React.memo(function ({ setData, disabled }: ChatInputProps) {
         setValue(value)
         setValue('')
         setFileList([])
+        settextlist([])
         if (agentContent) { agentContent.style.maxHeight = '700px'; }
     }
 
@@ -71,36 +73,41 @@ const ChatInput = React.memo(function ({ setData, disabled }: ChatInputProps) {
         listType: "picture",
         fileList: fileList,
         onChange({ file, fileList }) {
-
-            if (file.type?.startsWith('image/')) {
-                setflag(!flag)
-                setFileList(fileList);
-                if (file.status === 'done') {
-                    message.success(`${file.name} 上传成功`);
-                    if (agentContent) {
-                        if (fileList.length == 0) {
-                            agentContent.style.maxHeight = '600px';
-                        } else {
-                            agentContent.style.maxHeight = '500px';
-                        }
+            console.log(fileList);
+            // if (file.type?.startsWith('image/')) {
+            setflag(!flag)
+            setFileList(fileList);
+            if (file.status === 'done') {
+                message.success(`${file.name} 上传成功`);
+                if (agentContent) {
+                    if (fileList.length == 0) {
+                        agentContent.style.maxHeight = '600px';
+                    } else {
+                        agentContent.style.maxHeight = '500px';
                     }
-                } else if (file.status === 'error') {
-                    message.error(`${file.name} 上传失败.`);
                 }
+            } else if (file.status === 'error') {
+                message.error(`${file.name} 上传失败.`);
             }
+            // }
         },
         data: () => ({
             user: user, // 这里设置您希望添加的额外字段
         }),
-        beforeUpload(file, fileList) {
-            const isImage = file.type.startsWith('image/');
-            if (!isImage) {
-                message.error('只能上传图片!');
-                setFileList([])
-                return false; // 阻止上传
-            }
-            return true;
-        },
+        // onSuccess(response: any, file: any) {
+        //     message.success(`${file.name} 上传成功`);
+        //     console.log('File uploaded successfully.', response);
+
+        // },
+        // beforeUpload(file, fileList) {
+        //     const isImage = file.type.startsWith('image/');
+        //     if (!isImage) {
+        //         message.error('只能上传图片!');
+        //         setFileList([])
+        //         return false; // 阻止上传
+        //     }
+        //     return true;
+        // },
     };
 
     const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {

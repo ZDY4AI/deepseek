@@ -56,6 +56,7 @@ export default function Siderui({ width, setDate }: SideruiProps) {
                 if (typeof window !== 'undefined') {
                     localStorage.removeItem('access_token');
                     localStorage.removeItem('refresh_token');
+                    localStorage.removeItem('key-store')
                 }
                 message.success('退出成功')
             }}>
@@ -76,7 +77,7 @@ export default function Siderui({ width, setDate }: SideruiProps) {
                 width == '240px' ? <>
                     <div className='sider_top'>
                         <div className='title'>
-                            <span>DeepSeek</span>
+                            <span className='sider_logo'>DeepSeek + <Image src="/zdy.png" alt="" preview={false} width={70} height={30} /></span>
                             <LeftSquareOutlined onClick={() => { setMove() }} />
                         </div>
                         <Button className='button' type="text" icon={<PlusCircleOutlined />} onClick={() => {

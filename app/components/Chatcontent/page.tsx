@@ -3,7 +3,7 @@ import React, { useEffect, useState, useRef, act } from 'react';
 import './index.scss';
 import { Spin, FloatButton, message, Rate, Image } from 'antd';
 import { ChatMessage } from '../type';
-import { PlayCircleOutlined, PauseCircleOutlined, LikeOutlined, DislikeOutlined, CopyOutlined } from '@ant-design/icons';
+import { OpenAIOutlined, LikeOutlined, DislikeOutlined, CopyOutlined, UpOutlined, DownOutlined } from '@ant-design/icons';
 import agentStore from '@/app/store/agent';
 import dynamic from 'next/dynamic'
 import { copyToClipboard } from '@/app/hook/copyToClipboard';
@@ -43,29 +43,58 @@ export default function Chatcontent({ chatlist = [], setData }: ChatcontentProps
 
     const readtext = (text: string) => {
         let jsonPart: any = []
-        let textPart
+        let textPart = ''
+        let chat = ''
 
         if (text.substring(0, 7) == '```json') {
-            return { textPart: text, jsonPart: [] }
+            return { textPart: text, jsonPart: [], chat: '' }
         }
-        const startBracketIndex = text.indexOf('[');
-        const endBracketIndex = text.lastIndexOf(']');
+        const newtext: any = text.split('</think>')
+        // const startBracketIndex = text.indexOf('[');
+        // const endBracketIndex = text.lastIndexOf(']');
 
-        if (startBracketIndex === -1 || endBracketIndex === -1) {
-            return { textPart: text, jsonPart: [] };
+        // if (text.split('</think>').length == 1) {
+        //     if (newtext[0] == undefined) return 
+        //     chat = newtext[0]
+        // }
+        // if (text.split('</think>').length == 2) {
+        //     textPart = newtext[2]
+        // }
+        if (text.indexOf('</think>') === -1) {
+            // 如果没有 '</think>' 标签，直接返回原始文本
+            return { jsonPart, chat: newtext[0], textPart: '' };
         }
 
-        jsonPart = text.substring(startBracketIndex, endBracketIndex + 1);
-        textPart = text.substring(0, startBracketIndex).trim() + text.substring(endBracketIndex + 1).trim();
+        // 分割文本
+        const parts = text.split('</think>');
 
-        try {
-            const jsonArray = JSON.parse(jsonPart);
-            jsonPart = jsonArray
-
-        } catch (e) {
+        if (parts.length === 1) {
+            // 如果只有一个部分，说明 '</think>' 标签之前没有文本
+            if (newtext[0] === undefined) return;
+            return { jsonPart, chat: newtext[0], textPart: '' };
+        } else if (parts.length === 2) {
+            // 如果有两个部分，第一部分是 chat，第二部分是 textPart
+            return { jsonPart, chat: newtext[0], textPart: parts[1] };
+        } else {
+            // 如果有多个 '</think>' 标签，只取第一个和最后一个
+            return { jsonPart, chat: newtext[0], textPart: parts.slice(1).join('</think>') };
         }
 
-        return { jsonPart, textPart }
+        // if (startBracketIndex === -1 || endBracketIndex === -1) {
+        //     return { textPart: text, jsonPart: [] };
+        // }
+
+        // jsonPart = text.substring(startBracketIndex, endBracketIndex + 1);
+        // textPart = text.substring(0, startBracketIndex).trim() + text.substring(endBracketIndex + 1).trim();
+
+        // try {
+        //     const jsonArray = JSON.parse(jsonPart);
+        //     jsonPart = jsonArray
+
+        // } catch (e) {
+        // }
+        // console.log(newtext[0], '----textPart')
+        // return { jsonPart, textPart, chat }
     };
 
 
@@ -91,11 +120,13 @@ export default function Chatcontent({ chatlist = [], setData }: ChatcontentProps
         })
     }
 
+    const [web, setweb] = useState(1)
+
     return (
         <div className='chatcontent'>
             {
                 chatList.map((item: any, index: number) => {
-                    const { jsonPart, textPart } = readtext(item.answer);
+                    const { textPart, chat } = readtext(item.answer);
                     return <div key={item.id} className='allagent' >
                         <div className='agentContentItem agentright'>
                             <div className='agentContentTxt' style={{ backgroundColor: '#eff6ff' }}>
@@ -108,8 +139,15 @@ export default function Chatcontent({ chatlist = [], setData }: ChatcontentProps
                             <Image.PreviewGroup >
                                 {
                                     item['file_img_list'] && item['file_img_list'].map((item: any, index: number) => {
-                                        return <div>
-                                            <Image width={150} src={item} />
+                                        return <div onClick={() => {
+                                            console.log(item.thumbUrl)
+                                        }}>
+                                            {
+                                                item.thumbUrl ? <Image width={150} src={item.thumbUrl} /> : <div className='word'>
+                                                    {item.name}
+                                                </div>
+                                            }
+
                                         </div>
                                     })
                                 }
@@ -119,7 +157,33 @@ export default function Chatcontent({ chatlist = [], setData }: ChatcontentProps
                         <div className='agentContentItem agentleft'>
                             <img src='/logo.svg' alt="" />
                             <div className='agentContentTxt'>
-                                {item.answer == '' ? <Spin /> : <Markdown content={textPart} />}
+                                {item.answer == '' ? <Spin /> : <>
+                                    <div className='reasoningbutton' onClick={(e) => {
+                                        e.stopPropagation()
+                                        if (item['flag'] == undefined) {
+                                            item['flag'] = true
+                                        } else {
+                                            item['flag'] = !item['flag']
+                                        }
+                                        setweb(web + 1)
+                                    }}><OpenAIOutlined />已深度思考
+                                        {!item['flag'] ? <DownOutlined /> : <UpOutlined />}
+                                    </div>
+
+                                    {/* {
+                                        item['flag'] == undefined && !item['flag'] && 
+                                    } */}
+                                    {
+                                        item['flag'] == undefined ? <div className='reasoning'>
+                                            {chat}
+                                        </div> : item['flag'] ? <div className='reasoning'>
+                                            {chat}
+                                        </div> : ''
+                                    }
+
+
+                                    <Markdown content={textPart} />
+                                </>}
                                 {
                                     item.answer != '' && item.status == 'normal' && <div className='message_icon'>
 

@@ -64,6 +64,7 @@ export default function Agent({ params }: { params: { id: string } }) {
                 newlist = [...messageList]
                 newlist.push(chatobj(userinput, FileObj.file_img_list))
                 setMessageList(newlist)
+                settaskFlag(true)
                 Getresponse(userinput, FileObj.file_list)
                 setAskdirectly(false)
                 askDirectlyHandled = false
@@ -101,7 +102,6 @@ export default function Agent({ params }: { params: { id: string } }) {
             increment(1)
         }
         scrollBottom()
-        settaskFlag(true)
         const resp = await fetch(`${process.env.NEXT_PUBLIC_API_URL_ALIAS}/chat-messages`, {
             method: 'POST',
             headers: {
@@ -149,8 +149,8 @@ export default function Agent({ params }: { params: { id: string } }) {
                             completeAnswer += data.answer;
                         }
                         if (conversation_id == '') {
-                            const talk = { ...Talk } 
-                      
+                            const talk = { ...Talk }
+
                             setconversation_id(data.conversation_id)
                             talk.id = data.conversation_id
                             setTalk(talk)
@@ -171,7 +171,10 @@ export default function Agent({ params }: { params: { id: string } }) {
                             message_replace = data.answer
                             console.log(data.answer, '----message_replace-----');
                         }
-                        if (data.event === 'message_end') {
+                        if (data.event == 'node_finished') {
+                            settaskFlag(false)
+                        }
+                        if (data.event == 'message_end') {
                             settaskFlag(false)
                         }
 
@@ -184,10 +187,12 @@ export default function Agent({ params }: { params: { id: string } }) {
                 }
                 newlist[newlist.length - 1].answer = completeAnswer
                 setMessageList([...newlist])
+
             }
             if (message_replace != '') {
                 newlist[newlist.length - 1].answer = message_replace
                 setMessageList([...newlist])
+                settaskFlag(false)
             }
 
 
@@ -238,21 +243,25 @@ export default function Agent({ params }: { params: { id: string } }) {
             <div className='agentInput'>
                 <ChatInput disabled={taskFlag} setData={(data) => {
                     let file_list = []
+                    console.log(data, 'data');
+
                     if (data.fileList.length != 0) {
                         file_list = data.fileList.map((item: any) => {
                             const obj = {
-                                type: 'image',
+                                type: item.type,
                                 transfer_method: 'local_file',
                                 upload_file_id: item.response.id
                             }
                             return obj
                         })
                     }
-                    const file_img_list = data.fileList.map((item: any) => item.thumbUrl)
+
                     newlist = [...messageList]
-                    newlist.push(chatobj(data.value, file_img_list))
+                    newlist.push(chatobj(data.value, data.fileList))
                     setMessageList(newlist)
+                    settaskFlag(true)
                     Getresponse(data.value, file_list)
+
 
                 }}></ChatInput>
             </div>

@@ -46,7 +46,7 @@ export default function page() {
                             return obj
                         }
                         )
-                        const file_img_list = data.fileList.map((item: any) => item.thumbUrl)
+                        const file_img_list = data.fileList
                         setFileObj({ file_list, file_img_list })
                     }
                     setAskdirectly(true)
