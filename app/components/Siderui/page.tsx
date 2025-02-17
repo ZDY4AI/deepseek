@@ -74,6 +74,7 @@ export default function Siderui({ width, setDate }: SideruiProps) {
                         </div>
                         <Button className='button' type="text" icon={<PlusCircleOutlined />} onClick={() => {
                             setactive(-1)
+                            setpathid('-1')
                             router.push('/view/home')
                         }}>
                             开启新对话
