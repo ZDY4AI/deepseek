@@ -1,0 +1,29 @@
+import { create } from 'zustand';
+
+interface KeyStore {
+    key: string;
+    user: string,
+    conversation_id: string,
+    setKey: (key: string) => void;
+    setconversation_id: (conversation_id: string) => void;
+}
+const isClient = typeof window !== 'undefined';
+
+const KeyStore = create<KeyStore>((set) => ({
+
+    user: 'asd-123',
+    key: 'app-ITODRUYMH6o5jcdTH16AEpZ7',
+    // key: isClient ? localStorage.getItem('key') || '' : '',
+    // conversation_id: isClient ? localStorage.getItem('conversation_id') || '' : '',
+    conversation_id: 'e68c0a1e-d4d5-4f17-959c-9fa4f1b60d28',
+    setKey: (key) => {
+        set({ key });
+        localStorage.setItem('key', key);
+    },
+    setconversation_id: (conversation_id) => {
+        set({ conversation_id })
+        localStorage.setItem('conversation_id', conversation_id);
+    }
+}));
+
+export default KeyStore;    

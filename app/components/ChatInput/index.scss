@@ -1,0 +1,106 @@
+.chatinput {
+    width: 780px;
+    margin: 0 auto;
+
+    .chatinputbox {
+        border: 1px solid #cecece;
+        box-sizing: border-box;
+        border-radius: 15px;
+        overflow: hidden;
+        width: 778px;
+        position: relative;
+
+        >textarea {
+            box-shadow: none !important;
+            border: none;
+        }
+
+        .chatbutton {
+            width: 778px;
+            height: 40px;
+            margin: 0 auto;
+            border-radius: 5px;
+            background-color: #fff;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0px 20px;
+
+
+
+            .chatbuttonleft {
+                width: 190px; 
+                display: flex;
+                font-size: 12px;
+                color: #8a919b;
+                justify-content: space-between;
+                >button{
+                    width: 90px;
+                    font-size: 12px;
+                    border-radius: 12px;
+                    height: 25px;
+                }
+                .active{
+                    background-color: #dbeafe;
+                    color: #4b6bfe;
+                }
+            }
+
+            .chatbuttonright {
+                min-width: 80px;  
+                font-size: 21px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                .ant-upload {
+                    font-size: 23px !important;
+
+                }
+            }
+        }
+
+
+    }
+
+    .ant-upload-list {
+        position: absolute;
+        width: 99%;
+        height: 120px;
+        left: 2px;
+        display: flex;
+        align-items: center;
+        overflow-y: auto;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+
+        .ant-upload-list-item-container {
+            width: 230px;
+            margin: 5px 12px;
+        }
+
+        .ant-upload-list-item-container:last-child {
+            margin-bottom: 10px;
+        }
+
+    }
+
+    .chatupload {
+        position: relative;
+        margin-top: 1px;
+        height: 120px;
+        z-index: -1;
+    }
+
+
+    >p {
+        font-size: 12px;
+        text-align: center;
+        opacity: .7;
+        color: #8a919b;
+        margin-top: 10px;
+    }
+
+
+}

@@ -1,0 +1,50 @@
+.mdCopy {
+    position: relative;
+    margin-top: 0.5rem; // 假设mt-2为0.5rem
+    overflow: auto;
+    padding: 0.5rem; // 假设p-2为0.5rem
+
+    button {
+        cursor: pointer;
+        position: absolute;
+        right: 0;
+        margin-right: 0.5rem; // 假设mr-2为0.5rem
+        // display: none; // 默认隐藏
+        height: 1.5rem; // 假设h-6为1.5rem
+        width: 1.5rem; // 假设w-6为1.5rem
+        border-radius: 0.2rem; // 默认圆角大小
+        padding: 0; // p-0
+    }
+}
+
+.with-scrollbar {
+    max-height: 400px;
+    /* 根据需要设置最大高度 */
+    overflow-y: auto;
+    /* 当内容超出高度时显示滚动条 */
+    padding-right: 10px;
+    /* 为滚动条留出空间，避免内容被遮挡 */
+}
+
+ 
+
+.gptmarkdown {
+    // display: flex;
+    // align-items: center;
+    font-size: 14px !important;
+
+    .dot {
+        // display: inline;
+        float: right;
+        height: 16px;
+        width: 6px;
+        background-color: #eff6ff;
+        margin-left: 2px;
+        opacity: 0;
+        transition: opacity 0.5s;
+    }
+
+    .visible {
+        opacity: 1;
+    }
+}

@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f3f5fa;
+  box-sizing: border-box;
+
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
+  
+}
+
+
+.main {
+  width: 100%;
+  height: 100vh;
+  box-sizing: border-box;
+  /* padding-left: 100px; */
+  /* padding: 15px 0px 15px 100px; */
+}
+.layoutmemo{
+  width: 200px;
+  height: 100vh;
+}
+
+/* 滚动条整体部分 */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+/* 滚动条的滑块部分 */
+::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 6px;
+}
+
+
+.chatdiv {
+  width: 100%;
+  height: 400px;
+  /* background-color: pink; */
+  margin: 0 auto;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@font-face {
+  font-family: 'FancyFont';
+  src: url('../app/assets/FancyFont.ttf') format('truetype');
+}
+
+
+.fancy-text {
+  font-family: 'FancyFont', cursive;
+  font-size: 80px;
+  color: #333;
+  text-shadow: 2px 2px 4px #aaa;
+  margin-bottom: 40px;
+  letter-spacing: 40px;
+}
+
+.chatinput {
+  width: 100%;
+  /* background-color: pink; */
+}
+
+
+.logo {
+  width: 500px;
+  height: 100px;
+  /* background-color: pink; */
+  margin: 0px auto 30px;
+  background-image: url('../public/logo.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+}

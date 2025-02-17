@@ -1,0 +1,118 @@
+.agentinfo {
+    width: 100%;
+    height: 100%;
+
+    ::-webkit-scrollbar {
+        width: 0px;
+        height: 0px;
+    }
+
+    .spin {
+        width: 93%;
+        height: 100vh;
+        position: absolute;
+        background-color: #f3f5fa;
+        z-index: 10;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .agentTop {
+        width: 100%;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
+        height: 40px;
+        font-size: 15px;
+        font-weight: 500;
+        >img {
+            width: 30px;
+            height: 30px;
+            overflow: hidden;
+            border-radius: 50%;
+            margin-right: 10px;
+            object-fit: contain;
+        }
+    }
+
+    .allagent:last-child {
+        margin-bottom: 100px;
+    }
+
+    .agentContent {
+        width: 700px;
+        height: 600px;
+        box-sizing: border-box;
+        overflow-y: auto;
+        margin: 10px auto 0px;
+        transition: max-height 0.5s ease;
+
+        .agentContentItem {
+            display: flex;
+            margin: 15px 0px;
+
+            >img {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                object-fit: contain;
+            }
+
+            .agentContentTxt {
+                min-height: 46px;
+                background-color: #fff;
+                border-radius: 10px;
+                padding: 15px;
+                font-size: 14px;
+            }
+        }
+
+
+        .agentleft {
+            >img {
+                margin-right: 15px;
+                object-fit: contain;
+            }
+
+            .prompt {
+                display: flex;
+                flex-wrap: wrap;
+
+                .promptitem {
+                    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+                    padding: 5px 10px;
+                    color: #155eef;
+                    margin: 5px;
+                    border-radius: 10px;
+                    background-color: rgb(255, 255, 255);
+                    cursor: pointer;
+                }
+            }
+        }
+
+    }
+
+    .p {
+        background-color: pink;
+    }
+
+    .agentright {
+        flex-direction: row-reverse;
+
+        >img {
+            margin-left: 15px;
+            object-fit: contain;
+        }
+    }
+
+    .close {
+        position: relative;
+        bottom: 5px;
+        margin: 0 auto;
+        width: 100px;
+        text-align: center;
+    }
+}

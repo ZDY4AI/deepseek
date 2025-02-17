@@ -1,0 +1,116 @@
+.chatcontent {
+    .allagent:last-child {
+        margin-bottom: 10px;
+    }
+
+    .loading {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .agent_img {
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: flex-end;
+        padding-right: 60px;
+
+        >div {
+            height: 150px;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+    }
+
+    .agentContentItem {
+        display: flex;
+        margin: 15px 0px;
+        flex-wrap: wrap;
+
+        >img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: contain;
+        }
+
+        .agentContentTxt {
+            min-height: 46px;
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 14px;
+            max-width: 635px;
+
+            .message_icon {
+                width: 100%;
+                text-align: right;
+                font-size: 16px;
+                letter-spacing: 10px;
+                position: relative;
+                top: 10px;
+            }
+
+            .message_icon>* {
+                margin: 0 10px;
+            }
+        }
+
+
+    }
+
+
+    .agentleft {
+        >img {
+            margin-right: 15px;
+            object-fit: contain;
+        }
+
+    }
+
+    .agentright {
+        flex-direction: row-reverse;
+
+        >img {
+            margin-left: 15px;
+            object-fit: contain;
+        }
+
+        .agentContentTxt {
+            background-color: #eff6ff;
+        }
+
+    }
+
+
+
+    .icon {
+        cursor: pointer;
+        transition: transform 0.3s, color 0.3s;
+    }
+
+
+    .icon:hover {
+        color: #ff4081;
+    }
+
+    .like:hover {
+        color: green;
+    }
+
+    .icon:active {
+        transform: scale(1.2);
+    }
+
+    @keyframes heartAnimation {
+        0% {
+            opacity: 0;
+            transform: translateX(-50%) scale(0.5);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateX(-50%) scale(1);
+        }
+    }
+}

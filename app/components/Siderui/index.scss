@@ -1,0 +1,112 @@
+.sider {
+    height: 100%;
+    background-color: #f9fbff;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    cursor: pointer;
+
+
+    .sider_top {
+        .title {
+            width: 100%;
+            // background-color: red;
+            font-size: 25px;
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .button {
+            margin: 15px 0px 20px;
+            background-color: #c4deff;
+            color: #4d6bfe;
+            height: 40px;
+            width: 130px;
+            border-radius: 10px;
+        }
+
+        .messagelist {
+            width: 100%;
+            height: 500px;
+            overflow: auto;
+
+            .messageitem {
+                width: 100%;
+                height: 30px;
+                border-radius: 10px;
+                position: relative;
+                display: flex;
+                align-items: center;
+                padding: 10px;
+                font-size: 12px;
+                white-space: nowrap; // 禁止文本换行
+                overflow: hidden; // 隐藏溢出的文本
+                text-overflow: ellipsis; // 使用省略号表示溢出的文本
+
+                .drop {
+                    position: absolute;
+                    right: 20px;
+                    top: -9px;
+                    font-size: 20px;
+                    letter-spacing: 3px;
+                    display: flex;
+                    cursor: pointer;
+                }
+            }
+
+            .messageitem:hover {
+                background-color: #eff6ff;
+            }
+        }
+    }
+
+    .sider_buttom {
+        .userinfo {
+            width: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .userinfo div:nth-child(1) {
+            width: 30px;
+            height: 30px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-right: 45px;
+        }
+    }
+
+
+    .minsider {
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+
+        .minsider_top {
+            height: 200px;
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: column;
+            // background-color: pink;
+            font-size: 25px;
+            color: #717171;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+        .minsider_buttom {
+            width: 30px;
+            height: 30px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-right: 45px;
+        }
+    }
+
+ 
+
+}
