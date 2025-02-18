@@ -7,8 +7,8 @@ import { Button, Form, Input, message, Flex } from 'antd';
 import { Login } from '@/app/api/agent/index'
 import { useRouter } from 'next/navigation';
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
-import Image from 'next/image';
-import keyStore from '../store/key';
+import keyStore from '@/app/store/key';
+import Active from '@/app/store/active'
 
 
 export default function page() {
@@ -20,6 +20,30 @@ export default function page() {
 
     const router = useRouter();
     const { setUser } = keyStore()
+    const { platform_img, company_img, company_background, text } = Active()
+
+    const loginlist = [
+        {
+            name: "林佳",
+            phone: "13707913080"
+        },
+        {
+            name: "万仁文",
+            phone: "13807002580"
+        },
+        {
+            name: "戴鑫",
+            phone: "13507090209"
+        },
+        {
+            name: "邓海涛",
+            phone: "13361710693"
+        },
+        {
+            name: "裘木金",
+            phone: "15270818768"
+        }
+    ]
 
     const onFinish: FormProps<FieldType>['onFinish'] = async (values: any) => {
         console.log(values);
@@ -37,20 +61,32 @@ export default function page() {
         //     remember_me: true
         // }
 
-        Login(data).then((res: any) => {
-            if ('status' in res) {
-                message.error('账号或密码错误');
+        const index = loginlist.findIndex((item: any) => item.phone === values.username)
+        if (index != -1) {
+            if (loginlist[index].name == values.password) {
+                Login(data).then((res: any) => {
+                    if ('status' in res) {
+                        message.error('出现问题请联系管理员');
+                    } else {
+                        setUser(values.username)
+                        Cookies.set('access_token', res.data.access_token, { path: '/' })
+                        localStorage.setItem('access_token', res.data.access_token)
+                        localStorage.setItem('refresh_token', res.data.refresh_token)
+                        message.success('登录成功');
+                        router.push('/view/home');
+                    }
+                }).catch(err => {
+                    message.error('出现问题请联系管理员');
+                })
+
             } else {
-                setUser(values.username)
-                Cookies.set('access_token', res.data.access_token, { path: '/' })
-                localStorage.setItem('access_token', res.data.access_token)
-                localStorage.setItem('refresh_token', res.data.refresh_token)
-                message.success('登录成功');
-                router.push('/view/home');
+                message.error('密码错误');
             }
-        }).catch(err => {
-            message.error('账号或密码错误')
-        })
+        } else {
+            message.error('账号不存在');
+        }
+
+
 
     };
 
@@ -60,6 +96,18 @@ export default function page() {
     return (
         <div className="login">
             <div className='logindiv'>
+                <div className='login_logo'>
+                    <div>
+                        <img src={company_img} alt="" />
+                    </div>
+                    <span>+</span>
+                    <div style={{ width: '150px' }}>
+                        <img src={platform_img} alt="" />
+                    </div>
+                </div>
+                <div className='logo_text'>
+                    {text}
+                </div>
                 <Form
                     name="basic"
                     labelCol={{ span: 6 }}
@@ -85,10 +133,6 @@ export default function page() {
                     >
                         <Input.Password prefix={<LockOutlined />} />
                     </Form.Item>
-                    <div className='nopassword'>
-                        <span>新用户注册</span>
-                        <span>忘记密码？</span>
-                    </div>
                     <Form.Item label={null}>
                         <Button block type="primary" htmlType="submit">
                             登录

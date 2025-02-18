@@ -22,7 +22,7 @@ export default function Siderui({ width, setDate }: SideruiProps) {
     const [messagelist, setmessagelist] = useState([])
     const [visible, setvisible] = useState(false)
     const [info, setInfo] = useState({})
-    const { count, img } = Active()
+    const { count, platform_img, company_img } = Active()
     const router = useRouter();
     const [pathid, setpathid] = useState('')
     const [active, setactive] = useState(-1)
@@ -38,8 +38,9 @@ export default function Siderui({ width, setDate }: SideruiProps) {
         getConversation(user, '', 20, key).then((res) => {
             if (res.data.length != 0) {
                 setmessagelist(res.data)
+            } else {
+                setmessagelist([])
             }
-
             if (typeof window !== 'undefined') {
                 setpathid(window.location.pathname.split('/view/agent/')[1])
             }
@@ -77,7 +78,11 @@ export default function Siderui({ width, setDate }: SideruiProps) {
                 width == '240px' ? <>
                     <div className='sider_top'>
                         <div className='title'>
-                            <span className='sider_logo'>DeepSeek + <Image src="/zdy.png" alt="" preview={false} width={70} height={30} /></span>
+                            <span className='sider_logo'>
+                                {/* DeepSeek + <Image src="/zdy.png" alt="" preview={false} width={70} height={30} /> */}
+                                {/* <Image src={company_img} alt="" preview={false} width={70} height={30} /> */}
+                                <img src={company_img} alt="" />
+                            </span>
                             <LeftSquareOutlined onClick={() => { setMove() }} />
                         </div>
                         <Button className='button' type="text" icon={<PlusCircleOutlined />} onClick={() => {
@@ -131,37 +136,36 @@ export default function Siderui({ width, setDate }: SideruiProps) {
                         </div>
                     </div>
                     <div className='sider_buttom'>
-                        <Popover className='userinfo' placement="top" trigger="click" content={userDom}>
-                            <div>
-                                <Image
-                                    preview={false}
-                                    width={30}
-                                    src={img}
-                                />
-                            </div>
-                            <span>个人信息</span>
-                        </Popover>
-
+                        <Button onClick={() => {
+                            setactive(-1)
+                            setpathid('-1')
+                            Cookies.remove('access_token', { path: '/' });
+                            router.push('/login')
+                            if (typeof window !== 'undefined') {
+                                localStorage.removeItem('access_token');
+                                localStorage.removeItem('refresh_token');
+                                localStorage.removeItem('key-store')
+                            }
+                            message.success('退出成功')
+                        }}>退出登录</Button>
                     </div>
                 </> :
                     <>
                         <div className='minsider'>
                             <div className='minsider_top'>
-                                <Image src={img} alt='' width={50} height={50} preview={false}
-                                    onClick={() => setMove()} ></Image>
+                                <img src={company_img} alt="" onClick={() => setMove()} />
+                                {/* <Image src={platform_img} alt='' width={50} height={50} preview={false}
+                                    onClick={() => setMove()} ></Image> */}
                                 <RightSquareOutlined
                                     onClick={() => setMove()} />
                                 <PlusCircleOutlined onClick={() => { router.push('/view/home') }} />
                             </div>
-                            <div className='minsider_buttom'>
-                                <Popover className='userinfo' placement="top" trigger="click" content={userDom}>
-                                    <Image
-                                        preview={false}
-                                        width={30}
-                                        src={img}
-                                    />
+                            {/* <div className='minsider_buttom'>
+                                <Popover className='userinfo' placement="top" content={userDom}>
+                                    <img src={company_img} alt="" />
                                 </Popover>
-                            </div>
+                            </div> */}
+
                         </div>
                     </>
             }

@@ -27,6 +27,7 @@ const ChatInput = React.memo(function ({ setData, disabled }: ChatInputProps) {
     const [networking, setnetworking] = useState<boolean>(false)
 
 
+
     useEffect(() => {
         const agentContent = document.querySelector('.agentContent') as HTMLElement
         setagentContent(agentContent)
@@ -57,6 +58,7 @@ const ChatInput = React.memo(function ({ setData, disabled }: ChatInputProps) {
         settextlist([])
         if (agentContent) { agentContent.style.maxHeight = '700px'; }
     }
+    const list = []
 
 
     // curl - X POST 'http://183.201.231.29:2580/v1/files/upload' \
@@ -73,12 +75,36 @@ const ChatInput = React.memo(function ({ setData, disabled }: ChatInputProps) {
         listType: "picture",
         fileList: fileList,
         onChange({ file, fileList }) {
-            console.log(fileList);
-            // if (file.type?.startsWith('image/')) {
-            setflag(!flag)
-            setFileList(fileList);
-            if (file.status === 'done') {
+            if (file.type?.startsWith('image/')) {
+                console.log(1111111111111111)
+            }
+            // console.log(fileList);
+            // // if (file.type?.startsWith('image/')) {
+            // setflag(!flag)
+            // setFileList(fileList);
+            // if (file.status === 'done') {
+            //     message.success(`${file.name} 上传成功`);
+            //     if (agentContent) {
+            //         if (fileList.length == 0) {
+            //             agentContent.style.maxHeight = '600px';
+            //         } else {
+            //             agentContent.style.maxHeight = '500px';
+            //         }
+            //     }
+            // } else if (file.status === 'error') {
+            //     message.error(`${file.name} 上传失败.`);
+            // }
+            // // }
+        },
+        data: () => ({
+            user: user, // 这里设置您希望添加的额外字段
+        }),
+        onSuccess(response: any, file: any) {
+            console.log(response)
+            try {
                 message.success(`${file.name} 上传成功`);
+                fileList.push(response)
+                setflag(!flag)
                 if (agentContent) {
                     if (fileList.length == 0) {
                         agentContent.style.maxHeight = '600px';
@@ -86,19 +112,24 @@ const ChatInput = React.memo(function ({ setData, disabled }: ChatInputProps) {
                         agentContent.style.maxHeight = '500px';
                     }
                 }
-            } else if (file.status === 'error') {
-                message.error(`${file.name} 上传失败.`);
+            } catch {
+                message.error("上传失败");
             }
-            // }
-        },
-        data: () => ({
-            user: user, // 这里设置您希望添加的额外字段
-        }),
-        // onSuccess(response: any, file: any) {
-        //     message.success(`${file.name} 上传成功`);
-        //     console.log('File uploaded successfully.', response);
 
-        // },
+            // if (file.status === 'done') {
+            //     message.success(`${file.name} 上传成功`);
+            //     if (agentContent) {
+            //         if (fileList.length == 0) {
+            //             agentContent.style.maxHeight = '600px';
+            //         } else {
+            //             agentContent.style.maxHeight = '500px';
+            //         }
+            //     }
+            // } else if (file.status === 'error') {
+            //     message.error(`${file.name} 上传失败.`);
+            // }
+
+        },
         // beforeUpload(file, fileList) {
         //     const isImage = file.type.startsWith('image/');
         //     if (!isImage) {
@@ -133,13 +164,13 @@ const ChatInput = React.memo(function ({ setData, disabled }: ChatInputProps) {
 
                         <Button icon={<OpenAIOutlined />} className={think ? 'active' : ''}
                             onClick={() => { setthink(!think) }}>深度思考</Button>
-                        <Button icon={<ChromeOutlined />} className={networking ? 'active' : ''}
-                            onClick={() => { setnetworking(!networking) }}>联网搜索</Button>
+                        {/* <Button icon={<ChromeOutlined />} className={networking ? 'active' : ''}
+                            onClick={() => { setnetworking(!networking) }}>联网搜索</Button> */}
 
                     </div>
                     <div className="chatbuttonright">
-                        <Tooltip placement="top" title='支持上传文件(最多50个，每个100 MB)接受 pdfdoc、xsx、ppt、txt、图片等' >
-                            <Upload {...props}><LinkOutlined /></Upload>
+                        <Tooltip placement="top" title='支持上传文件(最多50个，每个100 MB)接受 TXT, MD, MDX, MARKDOWN, PDE HTML, XLSX,XLS, DOCX, CSV EML, MSG, PPTX, PPT, XML EPUB 图片等' >
+                            <Upload {...props} disabled><LinkOutlined /></Upload>
                         </Tooltip>
 
                         <Tooltip placement="top" title='向AI进行提问' >

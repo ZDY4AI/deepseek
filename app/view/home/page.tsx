@@ -7,6 +7,7 @@ import '@/app/globals.css'
 import { useRouter } from 'next/navigation';
 import agentStore from '@/app/store/agent'
 import KeyStore from '@/app/store/key';
+import Active from '@/app/store/active'
 
 export default function page() {
     const router = useRouter();
@@ -14,12 +15,25 @@ export default function page() {
     const setAskdirectly = agentStore((state) => state.setAskdirectly)
     const setFileObj = agentStore((state) => state.setFileObj)
     const setconversation_id = KeyStore((state) => state.setconversation_id)
+
+    const { platform_img, company_img, company_background, text } = Active()
     return (
         <div className='home'>
             <div className='content'>
-                <div className='top'>
-                    <Image src='/logo.svg' alt='' width={50} height={50}></Image>我是DeepSeek，很高兴见到你！
+                <div className='login_logo'>
+                    我是
+                    <div>
+                        <img src={company_img} alt="" />
+                    </div>
+                    <span>+</span>
+                    <div style={{ width: '150px' }}>
+                        <img src={platform_img} alt="" />
+                    </div>
+                    很高兴见到你！
                 </div>
+                {/* <div className='top'>
+                    <Image src='/logo.svg' alt='' width={50} height={50}></Image>我是DeepSeek，
+                </div> */}
                 <div className='text'>
                     我可以帮你写代码、读文件、写作各种创意内容，请把你的任务交给我吧~
                 </div>
@@ -39,9 +53,9 @@ export default function page() {
                     if (data.fileList.length != 0) {
                         file_list = data.fileList.map((item: any) => {
                             const obj = {
-                                type: 'image',
+                                type:'document',
                                 transfer_method: 'local_file',
-                                upload_file_id: item.response.id
+                                upload_file_id: item.id
                             }
                             return obj
                         }

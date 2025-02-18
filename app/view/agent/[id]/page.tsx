@@ -61,10 +61,10 @@ export default function Agent({ params }: { params: { id: string } }) {
             setFlag(false)
             // 用户直接从首页提问
             if (Askdirectly && askDirectlyHandled) {
+                settaskFlag(true)
                 newlist = [...messageList]
                 newlist.push(chatobj(userinput, FileObj.file_img_list))
                 setMessageList(newlist)
-                settaskFlag(true)
                 Getresponse(userinput, FileObj.file_list)
                 setAskdirectly(false)
                 askDirectlyHandled = false
@@ -145,12 +145,10 @@ export default function Agent({ params }: { params: { id: string } }) {
                     try {
                         const data = JSON.parse(jsonStr);
                         if (data.event === 'message' && data.answer) {
-                            // 直接追加answer，不替换换行符
                             completeAnswer += data.answer;
                         }
                         if (conversation_id == '') {
                             const talk = { ...Talk }
-
                             setconversation_id(data.conversation_id)
                             talk.id = data.conversation_id
                             setTalk(talk)
@@ -169,12 +167,14 @@ export default function Agent({ params }: { params: { id: string } }) {
                         }
                         if (data.event == 'message_replace') {
                             message_replace = data.answer
-                            console.log(data.answer, '----message_replace-----');
                         }
                         if (data.event == 'node_finished') {
+                            console.log(123456798);
                             settaskFlag(false)
                         }
                         if (data.event == 'message_end') {
+
+                            console.log(123456798);
                             settaskFlag(false)
                         }
 
@@ -189,10 +189,11 @@ export default function Agent({ params }: { params: { id: string } }) {
                 setMessageList([...newlist])
 
             }
+            settaskFlag(false)
+            console.log('--执行完毕--')
             if (message_replace != '') {
                 newlist[newlist.length - 1].answer = message_replace
                 setMessageList([...newlist])
-                settaskFlag(false)
             }
 
 
@@ -248,9 +249,10 @@ export default function Agent({ params }: { params: { id: string } }) {
                     if (data.fileList.length != 0) {
                         file_list = data.fileList.map((item: any) => {
                             const obj = {
-                                type: item.type,
+                                // type: item.type,
+                                type: 'document',
                                 transfer_method: 'local_file',
-                                upload_file_id: item.response.id
+                                upload_file_id: item.id
                             }
                             return obj
                         })

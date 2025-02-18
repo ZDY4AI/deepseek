@@ -1,27 +1,29 @@
 .login {
     width: 100%;
-    height: 100vh;
-    background-color: #f3f5fa;
+    height: 100%;
     position: absolute;
-    left: 0; 
+    left: 0;
+    // object-fit: contain;
+    background-image: url('/background.png');
+    background-size: cover;
+    /* 撑满全屏 */
+    background-repeat: no-repeat;
+    /* 防止背景图片重复 */
+    background-position: center;
+    /* 背景图片居中显示 */
 
-     
-
-    .login_logo {
+    .logo_text {
         width: 100%;
-        height: 50px;
-
-
-        >img {
-            width: 100px;
-            height: 50px;
-        }
+        margin-top:-15px;
+        text-align: center !important;
+        font-weight: 500;
+        font-size: 20px;
     }
 
 
     .logindiv {
         min-width: 450px;
-        min-height: 300px;
+        min-height: 350px;
         background-color: #ffffff;
         border-radius: 15px;
         position: absolute;
@@ -31,8 +33,52 @@
         box-sizing: border-box;
         display: flex;
         padding: 20px;
-        flex-direction: column-reverse;
-        justify-content: center;
+        justify-content: space-evenly;
+        flex-direction: column;
+
+        .login_logo {
+            width: 100%;
+            height: 70px;
+            // background-color: pink;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+
+            >div {
+                width: 150px;
+                height: 70px;
+
+                >img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: contain;
+                    /* 等比例缩放 */
+                }
+            }
+
+            >span {
+                font-size: 50px;
+
+            }
+
+
+        }
+
+        // .login_logo { 
+        //     width: 300px;
+        //     height: 70px;
+        //     box-sizing: border-box;
+        //     // background-color: pink;
+        //     position: absolute;
+        //     top: 10%; 
+        //     left: 50%;
+        //     transform: translate(-50%,-10%);
+        //     z-index: 100000;
+        //     display: flex;
+        //     justify-content: space-around;
+        //     font-size: 50px;
+        // }
+
 
     }
 
@@ -52,7 +98,7 @@
         .logindiv {
             width: 350px;
             height: 230px;
-            padding: 30px 50px;
+            // padding: 30px 50px;
         }
 
         .nopassword {

@@ -8,7 +8,7 @@ export function middleware(request: NextRequest) {
   const token = request.cookies.get('access_token');
 
   // 定义不需要鉴权的公开路径
-  const publicPaths = ['/login'];
+  const publicPaths = ['/login', '/images', '/static']; 
 
   // 如果路径是公开路径或用户已登录，则允许访问
   if (publicPaths.includes(path) || token) {
@@ -19,9 +19,10 @@ export function middleware(request: NextRequest) {
   return NextResponse.redirect(new URL('/login', request.url));
 }
 
+// middleware.ts
 export const config = {
   matcher: [
-    // 匹配所有路径，但排除 Next.js 内部路径和静态资源
-    '/((?!_next|_vercel|favicon.ico|manifest.json|robots.txt).*)'
+    // 排除所有静态文件请求（根据扩展名）
+    '/((?!_next|_vercel|.*\\.(?:ico|json|txt|jpg|jpeg|png|gif|webp|css|js|svg|woff|woff2|ttf|eot)$).*)'
   ]
 };
