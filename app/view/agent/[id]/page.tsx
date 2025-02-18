@@ -70,7 +70,7 @@ export default function Agent({ params }: { params: { id: string } }) {
                 askDirectlyHandled = false
             }
         } catch { }
-    }, [user])
+    }, [user,params.id])
 
     const chatobj = (val: string, file_img_list = []) => {
         return {
@@ -172,9 +172,7 @@ export default function Agent({ params }: { params: { id: string } }) {
                             console.log(123456798);
                             settaskFlag(false)
                         }
-                        if (data.event == 'message_end') {
-
-                            console.log(123456798);
+                        if (data.event == 'message_end') { 
                             settaskFlag(false)
                         }
 

@@ -45,7 +45,7 @@ const keyStore = create<KeyStore>()(
     persist(
         (set) => ({
             user: '',
-            key: 'app-rqctoq3CVVXS4NJq0NZp2Fke',
+            key: 'app-c8zac8EZ4f5FQHS4bpxuLR2U',
             conversation_id: '',
             loginlist: [
                 { username: 'admin', password: '123' },

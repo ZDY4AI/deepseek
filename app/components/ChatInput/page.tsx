@@ -130,15 +130,14 @@ const ChatInput = React.memo(function ({ setData, disabled }: ChatInputProps) {
             // }
 
         },
-        // beforeUpload(file, fileList) {
-        //     const isImage = file.type.startsWith('image/');
-        //     if (!isImage) {
-        //         message.error('只能上传图片!');
-        //         setFileList([])
-        //         return false; // 阻止上传
-        //     }
-        //     return true;
-        // },
+        beforeUpload(file, fileList) {
+            const isImage = file.type.startsWith('image/');
+            if (isImage) {
+                message.error('不允许上传图片!'); 
+                return false; // 阻止上传
+            }
+            return true;
+        },
     };
 
     const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -170,7 +169,7 @@ const ChatInput = React.memo(function ({ setData, disabled }: ChatInputProps) {
                     </div>
                     <div className="chatbuttonright">
                         <Tooltip placement="top" title='支持上传文件(最多50个，每个100 MB)接受 TXT, MD, MDX, MARKDOWN, PDE HTML, XLSX,XLS, DOCX, CSV EML, MSG, PPTX, PPT, XML EPUB 图片等' >
-                            <Upload {...props} disabled><LinkOutlined /></Upload>
+                            <Upload disabled {...props} ><LinkOutlined /></Upload>
                         </Tooltip>
 
                         <Tooltip placement="top" title='向AI进行提问' >

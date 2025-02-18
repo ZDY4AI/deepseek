@@ -40,13 +40,13 @@ service.interceptors.response.use(
     (error) => {
         if (error.response && error.response.status === 401) {
             localStorage.removeItem('access_token');
-            window.location.href = '/login';
+            // window.location.href = '/login';
         }
         if (error.code == 'ECONNABORTED') {
             message.error('请求超时，请稍后再试')
         }
         if (axios.isCancel(error)) {
-            window.location.href = '/login';
+            // window.location.href = '/login';
             return;
         }
         return Promise.reject(error);

@@ -28,12 +28,11 @@ export default function Siderui({ width, setDate }: SideruiProps) {
     const [active, setactive] = useState(-1)
 
     useEffect(() => {
-        getmessagelist()
-        console.log(count, 'count');
+        getmessagelist() 
 
     }, [count, user])
 
-    const getmessagelist = () => {
+    const getmessagelist = () => { 
         if (user == '') return
         getConversation(user, '', 20, key).then((res) => {
             if (res.data.length != 0) {
@@ -79,9 +78,8 @@ export default function Siderui({ width, setDate }: SideruiProps) {
                     <div className='sider_top'>
                         <div className='title'>
                             <span className='sider_logo'>
-                                {/* DeepSeek + <Image src="/zdy.png" alt="" preview={false} width={70} height={30} /> */}
-                                {/* <Image src={company_img} alt="" preview={false} width={70} height={30} /> */}
                                 <img src={company_img} alt="" />
+                                {/* 桑智 */}
                             </span>
                             <LeftSquareOutlined onClick={() => { setMove() }} />
                         </div>
@@ -154,11 +152,15 @@ export default function Siderui({ width, setDate }: SideruiProps) {
                         <div className='minsider'>
                             <div className='minsider_top'>
                                 <img src={company_img} alt="" onClick={() => setMove()} />
-                                {/* <Image src={platform_img} alt='' width={50} height={50} preview={false}
-                                    onClick={() => setMove()} ></Image> */}
+
+                                {/* <span style={{ fontSize: '15px' }}>桑智</span> */}
                                 <RightSquareOutlined
                                     onClick={() => setMove()} />
-                                <PlusCircleOutlined onClick={() => { router.push('/view/home') }} />
+                                <PlusCircleOutlined onClick={() => {
+                                    setactive(-1)
+                                    setpathid('-1')
+                                    router.push('/view/home')
+                                }} />
                             </div>
                             {/* <div className='minsider_buttom'>
                                 <Popover className='userinfo' placement="top" content={userDom}>

@@ -43,8 +43,7 @@ export default function page() {
             name: "裘木金",
             phone: "15270818768"
         }
-    ]
-
+    ];
     const onFinish: FormProps<FieldType>['onFinish'] = async (values: any) => {
         console.log(values);
 
@@ -54,30 +53,16 @@ export default function page() {
             password: "gj030928.",
             remember_me: true
         }
-        // const data: any = {
-        //     email: values.username,
-        //     language: "zh-Hans",
-        //     password: values.password,
-        //     remember_me: true
-        // }
 
         const index = loginlist.findIndex((item: any) => item.phone === values.username)
         if (index != -1) {
             if (loginlist[index].name == values.password) {
-                Login(data).then((res: any) => {
-                    if ('status' in res) {
-                        message.error('出现问题请联系管理员');
-                    } else {
-                        setUser(values.username)
-                        Cookies.set('access_token', res.data.access_token, { path: '/' })
-                        localStorage.setItem('access_token', res.data.access_token)
-                        localStorage.setItem('refresh_token', res.data.refresh_token)
-                        message.success('登录成功');
-                        router.push('/view/home');
-                    }
-                }).catch(err => {
-                    message.error('出现问题请联系管理员');
-                })
+                setUser(values.username)
+                Cookies.set('access_token', values.password, { path: '/' })
+                localStorage.setItem('access_token', values.password)
+                localStorage.setItem('refresh_token', values.password)
+                message.success('登录成功');
+                router.push('/view/home');
 
             } else {
                 message.error('密码错误');
@@ -99,6 +84,7 @@ export default function page() {
                 <div className='login_logo'>
                     <div>
                         <img src={company_img} alt="" />
+                        {/* 桑智 */}
                     </div>
                     <span>+</span>
                     <div style={{ width: '150px' }}>

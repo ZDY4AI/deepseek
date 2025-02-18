@@ -23,7 +23,9 @@ export default function page() {
                 <div className='login_logo'>
                     我是
                     <div>
+                        {/* <div style={{ width: '100px' }}> */}
                         <img src={company_img} alt="" />
+                        {/* <div>桑智</div> */}
                     </div>
                     <span>+</span>
                     <div style={{ width: '150px' }}>
@@ -53,7 +55,7 @@ export default function page() {
                     if (data.fileList.length != 0) {
                         file_list = data.fileList.map((item: any) => {
                             const obj = {
-                                type:'document',
+                                type: 'document',
                                 transfer_method: 'local_file',
                                 upload_file_id: item.id
                             }

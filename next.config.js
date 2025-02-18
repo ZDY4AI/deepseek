@@ -50,7 +50,7 @@ const nextConfig = {
     return [
       {
         source: '/api/files/upload',
-        destination: 'http://183.201.231.29:2580/v1/files/upload', // 代理到目标服务器
+        destination: 'http://166.111.105.28:5001/v1/files/upload', // 代理到目标服务器
       },
     ];
   },

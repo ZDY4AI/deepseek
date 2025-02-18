@@ -49,35 +49,35 @@ export default function Chatcontent({ chatlist = [], setData }: ChatcontentProps
         if (text.substring(0, 7) == '```json') {
             return { textPart: text, jsonPart: [], chat: '' }
         }
-        const newtext: any = text.split('</think>')
+        const newtext: any = text.split('</details>')
         // const startBracketIndex = text.indexOf('[');
         // const endBracketIndex = text.lastIndexOf(']');
 
-        // if (text.split('</think>').length == 1) {
+        // if (text.split('</details>').length == 1) {
         //     if (newtext[0] == undefined) return 
         //     chat = newtext[0]
         // }
-        // if (text.split('</think>').length == 2) {
+        // if (text.split('</details>').length == 2) {
         //     textPart = newtext[2]
         // }
-        if (text.indexOf('</think>') === -1) {
-            // 如果没有 '</think>' 标签，直接返回原始文本
+        if (text.indexOf('</details>') === -1) {
+            // 如果没有 '</details>' 标签，直接返回原始文本
             return { jsonPart, chat: newtext[0], textPart: '' };
         }
 
         // 分割文本
-        const parts = text.split('</think>');
+        const parts = text.split('</details>');
 
         if (parts.length === 1) {
-            // 如果只有一个部分，说明 '</think>' 标签之前没有文本
+            // 如果只有一个部分，说明 '</details>' 标签之前没有文本
             if (newtext[0] === undefined) return;
             return { jsonPart, chat: newtext[0], textPart: '' };
         } else if (parts.length === 2) {
             // 如果有两个部分，第一部分是 chat，第二部分是 textPart
             return { jsonPart, chat: newtext[0], textPart: parts[1] };
         } else {
-            // 如果有多个 '</think>' 标签，只取第一个和最后一个
-            return { jsonPart, chat: newtext[0], textPart: parts.slice(1).join('</think>') };
+            // 如果有多个 '</details>' 标签，只取第一个和最后一个
+            return { jsonPart, chat: newtext[0], textPart: parts.slice(1).join('</details>') };
         }
 
         // if (startBracketIndex === -1 || endBracketIndex === -1) {
@@ -99,25 +99,25 @@ export default function Chatcontent({ chatlist = [], setData }: ChatcontentProps
 
 
     const drop = (index: any, behavior: string) => {
-        const list = [...chatList]
-        const data = {
-            rating: behavior,
-            user: user,
-            content: list[index].answer
-        }
-        Likemessage(list[index].id, data, key).then((res: any) => {
-            if (res.result == 'success') {
-                list[index].feedback = { rating: behavior }
-                setchatList(list)
-                if (behavior == 'like') {
-                    message.success('谢谢您的鼓励')
-                } else {
-                    message.warning('我会继续努力的')
-                }
-            }
-        }).catch((err: any) => {
-            message.error('操作失败')
-        })
+        // const list = [...chatList]
+        // const data = {
+        //     rating: behavior,
+        //     user: user,
+        //     content: list[index].answer
+        // }
+        // Likemessage(list[index].id, data, key).then((res: any) => {
+        //     if (res.result == 'success') {
+        //         list[index].feedback = { rating: behavior }
+        //         setchatList(list)
+        //         if (behavior == 'like') {
+        //             message.success('谢谢您的鼓励')
+        //         } else {
+        //             message.warning('我会继续努力的')
+        //         }
+        //     }
+        // }).catch((err: any) => {
+        //     message.error('操作失败')
+        // })
     }
 
     const [web, setweb] = useState(1)
