@@ -28,11 +28,11 @@ export default function Siderui({ width, setDate }: SideruiProps) {
     const [active, setactive] = useState(-1)
 
     useEffect(() => {
-        getmessagelist() 
+        getmessagelist()
 
     }, [count, user])
 
-    const getmessagelist = () => { 
+    const getmessagelist = () => {
         if (user == '') return
         getConversation(user, '', 20, key).then((res) => {
             if (res.data.length != 0) {
@@ -78,8 +78,8 @@ export default function Siderui({ width, setDate }: SideruiProps) {
                     <div className='sider_top'>
                         <div className='title'>
                             <span className='sider_logo'>
-                                <img src={company_img} alt="" />
-                                {/* 桑智 */}
+                                <img src={company_img} alt="" width={50} height={50} style={{ borderRadius: '15px' }} />
+                                桑智
                             </span>
                             <LeftSquareOutlined onClick={() => { setMove() }} />
                         </div>
@@ -151,7 +151,11 @@ export default function Siderui({ width, setDate }: SideruiProps) {
                     <>
                         <div className='minsider'>
                             <div className='minsider_top'>
-                                <img src={company_img} alt="" onClick={() => setMove()} />
+                                <div style={{ width: '30px', height: '30px', borderRadius: '50%', overflow: 'hidden' }}
+                                    onClick={() => setMove()}  >
+                                    <img src={company_img} alt="" style={{borderRadius: '50%'}}/>
+                                </div>
+
 
                                 {/* <span style={{ fontSize: '15px' }}>桑智</span> */}
                                 <RightSquareOutlined

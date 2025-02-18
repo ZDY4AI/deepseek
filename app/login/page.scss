@@ -5,17 +5,14 @@
     left: 0;
     // object-fit: contain;
     background-image: url('/桑智.jpg');
-    background-color: #f9fbff;
-    background-size: cover;
-    /* 撑满全屏 */
-    background-repeat: no-repeat;
-    /* 防止背景图片重复 */
-    background-position: center;
-    /* 背景图片居中显示 */
+    // background-color: #f9fbff;
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center; 
 
     .logo_text {
         width: 100%;
-        margin-top:-15px;
+        margin-top: -15px;
         text-align: center !important;
         font-weight: 500;
         font-size: 20px;
@@ -45,12 +42,33 @@
             align-items: center;
             justify-content: space-evenly;
 
+            .private {
+                width: 150px;
+                height: 50px;
+                line-height: 50px;
+                display: flex;
+            }
+
+            .privateimg {
+                border-radius: 15px; 
+                overflow: hidden;
+                height: 60px;
+                width: 60px;
+                display: inline-block;
+            }
+
+            .private_name {
+                display: inline-block;
+                width: 100px;
+                height: 50px;
+            }
+
             >div {
                 width: 150px;
-                height: 70px; 
+                height: 70px;
                 font-size: 30px;
                 font-weight: 600;
-                line-height: 70px; 
+                line-height: 70px;
                 text-align: center;
 
                 >img {
@@ -62,8 +80,10 @@
             }
 
             >span {
+                display: inline-block;
                 font-size: 50px;
-
+                height: 70px;
+                line-height: 60px;
             }
 
 

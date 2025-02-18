@@ -35,7 +35,7 @@ export default function UpdataName({ visible, setData, info }: UpdataNameProps) 
             message.success('修改成功')
             localStorage.setItem('Talk', JSON.stringify(res))
             setData(false)
-            increment(1)
+            // increment(1)
         }).catch(err => {
             message.error('修改失败')
         })

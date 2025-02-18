@@ -8,9 +8,9 @@ const useStore = create(
         (set) => ({
             count: 0,
             platform_img: '/deep-seek.png',
-            company_img: '/新有梦.png',
+            company_img: '/桑智logo.jpg',
             company_background: '/background.png',
-            text: '欢迎！新建区政务服务数据管理局AI智能助手',
+            text: '欢迎！张家界桑植大数据中心AI智能助手',
             increment: (amount: number) => set((state: any) => ({ count: state.count + amount })),
 
         }),

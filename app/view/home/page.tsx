@@ -21,21 +21,26 @@ export default function page() {
         <div className='home'>
             <div className='content'>
                 <div className='login_logo'>
-                    我是
-                    <div>
-                        {/* <div style={{ width: '100px' }}> */}
+                    {/* <div>
+                        桑智
+                    </div> */}
+                    {/* <div>
                         <img src={company_img} alt="" />
-                        {/* <div>桑智</div> */}
+                    </div> */}
+                    {/* <div> */}
+                    <div style={{ fontSize: '25px' }}>我是</div>
+                    <div className='private'>
+                        <div className='privateimg'>
+                            <img src={company_img} alt="" style={{borderRadius:'15px'}}/>
+                        </div>
+                        <div className='private_name'>桑智</div>
                     </div>
                     <span>+</span>
                     <div style={{ width: '150px' }}>
                         <img src={platform_img} alt="" />
                     </div>
-                    很高兴见到你！
+                    <div style={{ fontSize: '25px' }}>很高兴见到你</div>
                 </div>
-                {/* <div className='top'>
-                    <Image src='/logo.svg' alt='' width={50} height={50}></Image>我是DeepSeek，
-                </div> */}
                 <div className='text'>
                     我可以帮你写代码、读文件、写作各种创意内容，请把你的任务交给我吧~
                 </div>

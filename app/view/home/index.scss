@@ -32,19 +32,40 @@
     }
 
     .login_logo {
-        width: 80%;
+        width: 75%; 
         height: 70px;
         // background-color: pink;
         display: flex;
         align-items: center;
         justify-content: space-evenly;
-        font-size: 25px;
-        >div {
+
+        .private {
             width: 150px;
+            height: 50px;
+            line-height: 50px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .privateimg {
+            border-radius: 15px;
+            overflow: hidden;
+            height: 60px;
+            width: 60px;
+            display: inline-block;
+        }
+
+        .private_name {
+            display: inline-block;
+            width: 80px;
+            height: 50px;
+        }
+
+        >div {
             height: 70px;
             font-size: 30px;
             font-weight: 600;
-            line-height: 70px; 
+            line-height: 70px;
             text-align: center;
 
             >img {
@@ -56,8 +77,10 @@
         }
 
         >span {
+            display: inline-block;
             font-size: 50px;
-
+            height: 70px;
+            line-height: 60px;
         }
 
 

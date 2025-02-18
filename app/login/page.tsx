@@ -24,24 +24,24 @@ export default function page() {
 
     const loginlist = [
         {
-            name: "林佳",
-            phone: "13707913080"
+            name: "赵旭东",
+            phone: "13974401234"
         },
         {
-            name: "万仁文",
-            phone: "13807002580"
+            name: "向佐章",
+            phone: "13574478718"
         },
         {
-            name: "戴鑫",
-            phone: "13507090209"
+            name: "张震",
+            phone: "13574478998"
         },
         {
-            name: "邓海涛",
-            phone: "13361710693"
+            name: "田平",
+            phone: "13574489979"
         },
         {
-            name: "裘木金",
-            phone: "15270818768"
+            name: "梁高武",
+            phone: "18174434343"
         }
     ];
     const onFinish: FormProps<FieldType>['onFinish'] = async (values: any) => {
@@ -82,9 +82,18 @@ export default function page() {
         <div className="login">
             <div className='logindiv'>
                 <div className='login_logo'>
-                    <div>
+                    {/* <div>
+                        桑智
+                    </div> */}
+                    {/* <div>
                         <img src={company_img} alt="" />
-                        {/* 桑智 */}
+                    </div> */}
+                    {/* <div> */}
+                    <div className='private'>
+                        <div className='privateimg'>
+                            <img src={company_img} alt="" style={{ borderRadius: '15px' }} />
+                        </div>
+                        <div className='private_name'>桑智</div>
                     </div>
                     <span>+</span>
                     <div style={{ width: '150px' }}>

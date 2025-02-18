@@ -4,7 +4,6 @@ import './index.scss';
 import { Spin, FloatButton, message, Rate, Image } from 'antd';
 import { ChatMessage } from '../type';
 import { OpenAIOutlined, LikeOutlined, DislikeOutlined, CopyOutlined, UpOutlined, DownOutlined } from '@ant-design/icons';
-import agentStore from '@/app/store/agent';
 import dynamic from 'next/dynamic'
 import { copyToClipboard } from '@/app/hook/copyToClipboard';
 import KeyStore from '@/app/store/key';
@@ -50,16 +49,7 @@ export default function Chatcontent({ chatlist = [], setData }: ChatcontentProps
             return { textPart: text, jsonPart: [], chat: '' }
         }
         const newtext: any = text.split('</details>')
-        // const startBracketIndex = text.indexOf('[');
-        // const endBracketIndex = text.lastIndexOf(']');
 
-        // if (text.split('</details>').length == 1) {
-        //     if (newtext[0] == undefined) return 
-        //     chat = newtext[0]
-        // }
-        // if (text.split('</details>').length == 2) {
-        //     textPart = newtext[2]
-        // }
         if (text.indexOf('</details>') === -1) {
             // 如果没有 '</details>' 标签，直接返回原始文本
             return { jsonPart, chat: newtext[0], textPart: '' };
@@ -79,22 +69,6 @@ export default function Chatcontent({ chatlist = [], setData }: ChatcontentProps
             // 如果有多个 '</details>' 标签，只取第一个和最后一个
             return { jsonPart, chat: newtext[0], textPart: parts.slice(1).join('</details>') };
         }
-
-        // if (startBracketIndex === -1 || endBracketIndex === -1) {
-        //     return { textPart: text, jsonPart: [] };
-        // }
-
-        // jsonPart = text.substring(startBracketIndex, endBracketIndex + 1);
-        // textPart = text.substring(0, startBracketIndex).trim() + text.substring(endBracketIndex + 1).trim();
-
-        // try {
-        //     const jsonArray = JSON.parse(jsonPart);
-        //     jsonPart = jsonArray
-
-        // } catch (e) {
-        // }
-        // console.log(newtext[0], '----textPart')
-        // return { jsonPart, textPart, chat }
     };
 
 
